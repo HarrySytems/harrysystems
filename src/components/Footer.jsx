@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
 
         <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '9px', color: 'var(--muted)', letterSpacing: '1px' }}>
-          © 2025 HARRYSYSTEMS
+          © 2026 HARRYSYSTEMS
         </div>
       </div>
     </footer>
