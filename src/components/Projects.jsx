@@ -14,6 +14,22 @@ const projects = [
     accent: '#7c3aed',
     status: 'PUBLICADO',
   },
+  {
+    name: 'StreamElevate',
+    desc: 'Panel de control remoto para streamers. Modera y proyecta mensajes en pantalla desde cualquier dispositivo, envía alertas personalizadas y gestiona tu stream en tiempo real. Solo pega el Widget Dinámico en OBS una vez y olvídate. Cero consumo de CPU extra.',
+    tags: ['Web App', 'Streaming', 'OBS', 'Kick', 'Tiempo Real'],
+    logo: 'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776398083/FA_f3rf45.png',
+    screenshots: [
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776398083/55d69a35-9b88-4784-b099-35a7e8b14258_xccoev.jpg',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776398083/ORUEBA_3_egrpgj.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776398082/PRUEBA_ug6pgb.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776398082/LOGIN_voxmzu.png',
+    ],
+    link: 'https://streamelevate.harrysystems.website/',
+    accent: '#00d4ff',
+    status: 'DISPONIBLE',
+    youtube: '4uv2ugnif0I',
+  },
 ]
 
 export default function Projects() {
@@ -54,11 +70,13 @@ export default function Projects() {
 
 function ProjectCard({ project: p }) {
   const [activeImg, setActiveImg] = useState(0)
+  const [showVideo, setShowVideo] = useState(false)
 
   useEffect(() => {
+    if (showVideo) return
     const t = setInterval(() => setActiveImg(i => (i + 1) % p.screenshots.length), 3000)
     return () => clearInterval(t)
-  }, [p.screenshots.length])
+  }, [p.screenshots.length, showVideo])
 
   return (
     <div className="hs-card animate-fadeUp-1" style={{ padding: '0', overflow: 'hidden', marginBottom: '24px' }}>
@@ -67,7 +85,6 @@ function ProjectCard({ project: p }) {
         {/* Left: info */}
         <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            {/* Logo + name */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
               <img src={p.logo} alt={p.name}
                 style={{ width: '56px', height: '56px', borderRadius: '14px', border: `2px solid ${p.accent}40` }} />
@@ -89,7 +106,6 @@ function ProjectCard({ project: p }) {
               {p.desc}
             </p>
 
-            {/* Tags */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
               {p.tags.map(t => (
                 <span key={t} style={{
@@ -101,39 +117,68 @@ function ProjectCard({ project: p }) {
             </div>
           </div>
 
-          <a href={p.link} target="_blank" rel="noreferrer"
-            className="hs-btn hs-btn-primary" style={{ alignSelf: 'flex-start' }}>
-            ↓ DESCARGAR GRATIS
-          </a>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <a href={p.link} target="_blank" rel="noreferrer"
+              className="hs-btn hs-btn-primary" style={{ alignSelf: 'flex-start' }}>
+              {p.youtube ? '→ ABRIR APP' : '↓ DESCARGAR GRATIS'}
+            </a>
+            {p.youtube && (
+              <button
+                onClick={() => setShowVideo(v => !v)}
+                className="hs-btn"
+                style={{
+                  alignSelf: 'flex-start', background: 'transparent',
+                  border: `1px solid ${p.accent}60`, color: p.accent, cursor: 'pointer',
+                }}>
+                {showVideo ? '✕ CERRAR VIDEO' : '▶ VER VIDEO'}
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Right: screenshots carousel */}
+        {/* Right: screenshots o video */}
         <div style={{
           background: 'var(--bg3)', borderLeft: '1px solid var(--border)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
           padding: '32px', gap: '16px',
         }}>
-          <img
-            src={p.screenshots[activeImg]}
-            alt="screenshot"
-            style={{
-              maxHeight: '320px', maxWidth: '100%', objectFit: 'contain',
-              borderRadius: '12px', border: `1px solid ${p.accent}20`,
-              boxShadow: `0 20px 60px ${p.accent}15`,
-              transition: 'all .3s',
-            }}
-          />
-          <div style={{ display: 'flex', gap: '8px' }}>
-            {p.screenshots.map((_, i) => (
-              <div key={i} onClick={() => setActiveImg(i)} style={{
-                width: i === activeImg ? '20px' : '8px', height: '8px',
-                borderRadius: '4px', cursor: 'pointer',
-                background: i === activeImg ? p.accent : 'var(--muted)',
-                transition: 'all .3s',
-              }} />
-            ))}
-          </div>
+          {showVideo && p.youtube ? (
+            <iframe
+              width="100%"
+              height="280"
+              src={`https://www.youtube.com/embed/${p.youtube}?autoplay=1`}
+              title="Demo video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ borderRadius: '12px', border: `1px solid ${p.accent}30` }}
+            />
+          ) : (
+            <>
+              <img
+                src={p.screenshots[activeImg]}
+                alt="screenshot"
+                style={{
+                  maxHeight: '320px', maxWidth: '100%', objectFit: 'contain',
+                  borderRadius: '12px', border: `1px solid ${p.accent}20`,
+                  boxShadow: `0 20px 60px ${p.accent}15`,
+                  transition: 'all .3s',
+                }}
+              />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                {p.screenshots.map((_, i) => (
+                  <div key={i} onClick={() => setActiveImg(i)} style={{
+                    width: i === activeImg ? '20px' : '8px', height: '8px',
+                    borderRadius: '4px', cursor: 'pointer',
+                    background: i === activeImg ? p.accent : 'var(--muted)',
+                    transition: 'all .3s',
+                  }} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
+
       </div>
     </div>
   )
