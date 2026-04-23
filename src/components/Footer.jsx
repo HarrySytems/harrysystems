@@ -11,8 +11,9 @@ export default function Footer() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img
-            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825437/image_e6kyib.jpg"
-            alt="logo" style={{ width: '28px', height: '28px', borderRadius: '6px' }}
+            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
+            alt="logo"
+            style={{ width: '28px', height: '28px', borderRadius: '6px', objectFit: 'cover' }}
           />
           <span style={{ fontFamily: "'Orbitron',monospace", fontSize: '12px', color: '#fff', fontWeight: 700 }}>
             HARRY<span style={{ color: 'var(--accent)' }}>SYSTEMS</span>
