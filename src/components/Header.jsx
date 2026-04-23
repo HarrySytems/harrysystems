@@ -34,9 +34,11 @@ export default function Header() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825437/image_e6kyib.jpg"
+            <img
+              src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
               alt="HarrySystems"
-              style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1px solid rgba(0,212,255,0.3)' }} />
+              style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1px solid rgba(0,212,255,0.3)', objectFit: 'cover' }}
+            />
             <div>
               <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '13px', fontWeight: 800, color: '#ffffff', letterSpacing: '1px' }}>
                 HARRY<span style={{ color: '#00d4ff' }}>SYSTEMS</span>
@@ -47,7 +49,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Desktop nav */}
           <nav style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">
             {links.map(l => (
               <button key={l} onClick={() => scrollTo(l)} style={{
@@ -76,7 +77,6 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* Hamburger */}
           <button onClick={() => setMenuOpen(!menuOpen)} style={{
             background: 'none', border: '1px solid rgba(0,212,255,0.3)',
             borderRadius: '8px', padding: '8px', cursor: 'pointer',
@@ -89,7 +89,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div style={{
           position: 'fixed', top: '64px', left: 0, right: 0, zIndex: 99,
