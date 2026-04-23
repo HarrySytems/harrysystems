@@ -1,223 +1,129 @@
 import { useState, useEffect } from 'react'
 
-const slides = [
-  {
-    tag: '// DESARROLLO DE SOFTWARE',
-    title: 'Soluciones digitales que transforman tu negocio',
-    sub: 'Creamos apps, sistemas y plataformas web de alto impacto para empresas en Peru y Latinoamerica.',
-    accent: '#00d4ff',
-  },
-  {
-    tag: '// APPS MOVILES',
-    title: 'Promedius: La calculadora definitiva para estudiantes',
-    sub: 'Disponible para Android. Soporte para UNMSM, UNI, UTP, UNAM y mas universidades de Latinoamerica.',
-    accent: '#00d4ff',
-  },
-  {
-    tag: '// MISION HARRYSYSTEMS',
-    title: 'Tecnologia con proposito, no con relleno',
-    sub: 'En HarrySystems creemos que el mejor software es el que resuelve algo real. Desarrollamos para estudiantes, empresas y emprendedores.',
-    accent: '#00d4ff',
-  },
-]
+const links = ['Inicio', 'Proyectos', 'Nosotros', 'Contacto']
 
-export default function Hero() {
-  const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(false)
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setAnimating(true)
-      setTimeout(() => { setCurrent(p => (p + 1) % slides.length); setAnimating(false) }, 300)
-    }, 5000)
-    return () => clearInterval(t)
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const goNext = () => {
-    setAnimating(true)
-    setTimeout(() => { setCurrent(p => (p + 1) % slides.length); setAnimating(false) }, 300)
+  const scrollTo = (section) => {
+    const map = { 'Inicio': 'hero', 'Proyectos': 'proyectos', 'Nosotros': 'nosotros', 'Contacto': 'contacto' }
+    document.getElementById(map[section])?.scrollIntoView({ behavior: 'smooth' })
+    setMenuOpen(false)
   }
-
-  const goPrev = () => {
-    setAnimating(true)
-    setTimeout(() => { setCurrent(p => (p - 1 + slides.length) % slides.length); setAnimating(false) }, 300)
-  }
-
-  const slide = slides[current]
 
   return (
-    <section id="hero" style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '120px 40px 80px',
-      position: 'relative',
-      overflow: 'hidden',
-    }}>
-      <div style={{
-        position: 'absolute', top: '30%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px', height: '600px',
-        background: 'radial-gradient(circle, rgba(0,212,255,0.10) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{
-        maxWidth: '900px',
-        width: '100%',
-        textAlign: 'center',
-        opacity: animating ? 0 : 1,
-        transform: animating ? 'translateY(10px)' : 'translateY(0)',
-        transition: 'opacity .3s, transform .3s',
+    <>
+      <header style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        padding: '0 24px',
+        background: scrolled ? 'rgba(5,5,15,0.97)' : 'rgba(5,5,15,0.8)',
+        backdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(0,212,255,0.1)',
+        transition: 'all .3s',
       }}>
         <div style={{
-          fontFamily: "'Space Mono',monospace",
-          fontSize: '11px',
-          letterSpacing: '3px',
-          color: '#00d4ff',
-          marginBottom: '24px',
+          maxWidth: '1200px', margin: '0 auto',
+          height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          {slide.tag}
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
-          <img
-            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
-            alt="HarrySystems"
-            className="animate-float"
-            style={{
-              width: '90px',
-              height: '90px',
-              borderRadius: '20px',
-              border: '2px solid rgba(0,212,255,0.4)',
-              boxShadow: '0 0 40px rgba(0,212,255,0.25)',
-              objectFit: 'cover',
-            }}
-          />
-        </div>
-
-        <h1 style={{
-          fontFamily: "'Orbitron',monospace",
-          fontSize: 'clamp(28px, 5vw, 52px)',
-          fontWeight: 900,
-          lineHeight: 1.1,
-          letterSpacing: '-1px',
-          color: '#ffffff',
-          marginBottom: '24px',
-        }}>
-          {slide.title}
-        </h1>
-
-        <p style={{
-          fontSize: '16px',
-          lineHeight: 1.8,
-          color: '#9999bb',
-          maxWidth: '620px',
-          margin: '0 auto 40px',
-        }}>
-          {slide.sub}
-        </p>
-
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          
-            href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
-            target="_blank"
-            rel="noreferrer"
-            className="hs-btn hs-btn-primary"
-          >
-            Descargar Promedius
-          </a>
-          <button
-            className="hs-btn hs-btn-outline"
-            onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
-          >
-            Contactar
-          </button>
-        </div>
-
-        <div style={{
-          display: 'flex',
-          gap: '48px',
-          justifyContent: 'center',
-          marginTop: '64px',
-          flexWrap: 'wrap',
-        }}>
-          {[
-            { n: '1+', label: 'APP PUBLICADA' },
-            { n: 'LATAM', label: 'ALCANCE' },
-            { n: 'RUC', label: '10770540734' },
-          ].map(s => (
-            <div key={s.label} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontFamily: "'Orbitron',monospace",
-                fontSize: '28px',
-                fontWeight: 900,
-                color: '#00d4ff',
-              }}>
-                {s.n}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img
+              src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
+              alt="HarrySystems"
+              style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1px solid rgba(0,212,255,0.3)', objectFit: 'cover' }}
+            />
+            <div>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '13px', fontWeight: 800, color: '#ffffff', letterSpacing: '1px' }}>
+                HARRY<span style={{ color: '#00d4ff' }}>SYSTEMS</span>
               </div>
-              <div style={{
-                fontFamily: "'Space Mono',monospace",
-                fontSize: '9px',
-                color: '#555577',
-                letterSpacing: '2px',
-                marginTop: '4px',
-              }}>
-                {s.label}
+              <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '7px', color: '#aaaacc', letterSpacing: '2px' }}>
+                SOFTWARE & APPS
               </div>
             </div>
+          </div>
+
+          <nav style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">
+            {links.map(l => (
+              <button key={l} onClick={() => scrollTo(l)} style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontFamily: "'Space Mono',monospace", fontSize: '10px',
+                letterSpacing: '1px', color: '#ffffff',
+                padding: '8px 14px', borderRadius: '6px',
+                transition: 'color .2s, background .2s',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#00d4ff'; e.currentTarget.style.background = 'rgba(0,212,255,0.08)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = '#ffffff'; e.currentTarget.style.background = 'none' }}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+            <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
+              target="_blank" rel="noreferrer"
+              style={{
+                marginLeft: '8px', padding: '8px 16px',
+                background: '#00d4ff', color: '#000', borderRadius: '8px',
+                fontFamily: "'Space Mono',monospace", fontSize: '10px',
+                fontWeight: 700, textDecoration: 'none', letterSpacing: '1px',
+                whiteSpace: 'nowrap',
+              }}>
+              DESCARGAR APP
+            </a>
+          </nav>
+
+          <button onClick={() => setMenuOpen(!menuOpen)} style={{
+            background: 'none', border: '1px solid rgba(0,212,255,0.3)',
+            borderRadius: '8px', padding: '8px', cursor: 'pointer',
+            display: 'none', flexDirection: 'column', gap: '4px',
+          }} className="hamburger">
+            {[0,1,2].map(i => (
+              <div key={i} style={{ width: '20px', height: '2px', background: '#00d4ff', borderRadius: '2px' }} />
+            ))}
+          </button>
+        </div>
+      </header>
+
+      {menuOpen && (
+        <div style={{
+          position: 'fixed', top: '64px', left: 0, right: 0, zIndex: 99,
+          background: 'rgba(5,5,15,0.98)', borderBottom: '1px solid rgba(0,212,255,0.1)',
+          padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '8px',
+        }}>
+          {links.map(l => (
+            <button key={l} onClick={() => scrollTo(l)} style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontFamily: "'Space Mono',monospace", fontSize: '12px',
+              letterSpacing: '2px', color: '#ffffff', padding: '12px 0',
+              textAlign: 'left', borderBottom: '1px solid rgba(0,212,255,0.08)',
+            }}>
+              {l.toUpperCase()}
+            </button>
           ))}
+          <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
+            target="_blank" rel="noreferrer"
+            style={{
+              marginTop: '8px', padding: '12px', textAlign: 'center',
+              background: '#00d4ff', color: '#000', borderRadius: '8px',
+              fontFamily: "'Space Mono',monospace", fontSize: '11px',
+              fontWeight: 700, textDecoration: 'none',
+            }}>
+            DESCARGAR APP
+          </a>
         </div>
-      </div>
+      )}
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '48px' }}>
-        <button onClick={goPrev} style={{
-          background: 'rgba(0,212,255,.08)',
-          border: '1px solid rgba(0,212,255,.2)',
-          color: '#00d4ff', width: '36px', height: '36px',
-          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
-        }}>
-          &larr;
-        </button>
-
-        {slides.map((_, i) => (
-          <div key={i} onClick={() => setCurrent(i)} style={{
-            width: i === current ? '24px' : '8px', height: '8px',
-            borderRadius: '4px', cursor: 'pointer',
-            background: i === current ? '#00d4ff' : '#333355',
-            transition: 'all .3s',
-          }} />
-        ))}
-
-        <button onClick={goNext} style={{
-          background: 'rgba(0,212,255,.08)',
-          border: '1px solid rgba(0,212,255,.2)',
-          color: '#00d4ff', width: '36px', height: '36px',
-          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
-        }}>
-          &rarr;
-        </button>
-      </div>
-
-      <div style={{
-        position: 'absolute', bottom: '32px', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-      }}>
-        <div style={{
-          fontFamily: "'Space Mono',monospace",
-          fontSize: '8px', color: '#333355', letterSpacing: '2px',
-        }}>
-          SCROLL
-        </div>
-        <div style={{
-          width: '1px', height: '40px',
-          background: 'linear-gradient(to bottom, #00d4ff, transparent)',
-          animation: 'pulse 2s ease-in-out infinite',
-        }} />
-      </div>
-    </section>
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .hamburger { display: flex !important; }
+        }
+      `}</style>
+    </>
   )
 }
