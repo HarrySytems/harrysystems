@@ -1,125 +1,78 @@
-import { useState, useEffect } from 'react'
-
-const slides = [
-  {
-    tag: 'Soluciones a medida',
-    title: 'Software de alto impacto para Latinoamérica',
-    sub: 'Desarrollamos aplicaciones y sistemas escalables con un enfoque en rendimiento y experiencia de usuario.',
-  },
-  {
-    tag: 'Producto Destacado',
-    title: 'Promedius: Herramienta académica inteligente',
-    sub: 'La plataforma definitiva para el cálculo de promedios universitarios en Perú y la región.',
-  },
-  {
-    tag: 'Ecosistema Digital',
-    title: 'StreamElevate: Control total para Streamers',
-    sub: 'Gestiona tu audiencia y alertas en tiempo real sin sacrificar recursos de tu hardware.',
-  },
-]
-
 export default function Hero() {
-  const [current, setCurrent] = useState(0)
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setCurrent(p => (p + 1) % slides.length)
-    }, 6000)
-    return () => clearInterval(t)
-  }, [])
-
-  const slide = slides[current]
-
   return (
-    <section id="hero" style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '0 24px',
-      background: 'radial-gradient(circle at top, #18181b 0%, #09090b 100%)',
-    }}>
-      <div className="animate-fade" style={{ maxWidth: '800px', textAlign: 'center' }}>
-        
-        {/* Badge superior profesional */}
-        <div style={{
-          display: 'inline-block',
-          padding: '6px 12px',
-          borderRadius: '20px',
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid var(--border)',
-          fontSize: '12px',
-          fontWeight: 500,
-          color: 'var(--text-muted)',
-          marginBottom: '24px'
-        }}>
-          {slide.tag}
-        </div>
-
-        {/* Imagen centrada profesional */}
-        <div style={{ marginBottom: '32px' }}>
-          <img
-            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
-            alt="Logo"
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '16px',
-              border: '1px solid var(--border)',
-              objectFit: 'cover'
-            }}
-          />
-        </div>
-
-        <h1 style={{
-          fontSize: 'clamp(32px, 8vw, 64px)',
-          fontWeight: 800,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.1,
-          marginBottom: '24px',
-          color: 'var(--text-main)'
-        }}>
-          {slide.title}
-        </h1>
-
-        <p style={{
-          fontSize: '18px',
-          color: 'var(--text-muted)',
-          maxWidth: '600px',
-          margin: '0 auto 40px',
-          lineHeight: 1.6
-        }}>
-          {slide.sub}
-        </p>
-
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-          <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro" target="_blank" rel="noreferrer" className="hs-btn hs-btn-primary">
-            Obtener Promedius
-          </a>
-          <button onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })} className="hs-btn hs-btn-outline">
-            Contactar
-          </button>
-        </div>
-
-        {/* Stats Minimalistas */}
-        <div style={{
-          marginTop: '80px',
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '40px',
-          borderTop: '1px solid var(--border)',
-          paddingTop: '40px'
-        }}>
-          {[
-            { n: '1+', label: 'Apps Publicadas' },
-            { n: 'LATAM', label: 'Región' },
-            { n: 'RUC', label: '10770540734' },
-          ].map(s => (
-            <div key={s.label}>
-              <div style={{ fontSize: '24px', fontWeight: 700 }}>{s.n}</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</div>
+    <section id="hero" style={{ paddingTop: '80px' }}>
+      
+      {/* BANNER PRINCIPAL CON IMAGEN DE FONDO Y OVERLAY OSCURO */}
+      <div style={{
+        position: 'relative',
+        minHeight: '600px',
+        display: 'flex',
+        alignItems: 'center',
+        /* Imagen de fondo profesional simulando tecnología/desarrollo */
+        background: 'linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070") center/cover',
+      }}>
+        <div className="container hero-text-box" style={{ width: '100%', position: 'relative', zIndex: 10 }}>
+          <div style={{ maxWidth: '700px' }}>
+            <div style={{ color: '#60a5fa', fontWeight: 700, fontSize: '12px', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
+              TECNOLOGÍA · DESARROLLO · CONFIANZA
             </div>
-          ))}
+            
+            <h1 style={{ color: '#ffffff', fontSize: '56px', fontWeight: 800, lineHeight: 1.1, marginBottom: '24px' }}>
+              Soluciones de software para escalar <span style={{ color: '#60a5fa' }}>tu negocio</span>
+            </h1>
+            
+            <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: 1.6, marginBottom: '40px', maxWidth: '600px' }}>
+              En Harry Systems ofrecemos desarrollo de aplicaciones y sistemas a medida. Tecnología avanzada, código limpio y soporte confiable para empresas y estudiantes.
+            </p>
+            
+            <div className="hero-buttons" style={{ display: 'flex', gap: '16px' }}>
+              <a href="#proyectos" className="btn btn-blue">
+                <span style={{ marginRight: '8px' }}>✓</span> Conoce nuestros proyectos
+              </a>
+              <button onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })} className="btn btn-outline">
+                Solicita una cotización
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* BARRA INFERIOR DE 4 COLUMNAS (CARACTERÍSTICAS) */}
+      <div style={{ background: '#ffffff', borderBottom: '1px solid var(--border)', padding: '40px 0' }}>
+        <div className="container grid-4">
+          
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0f9ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: '24px', flexShrink: 0 }}>🛡️</div>
+            <div>
+              <h3 style={{ fontWeight: 700, color: 'var(--primary)', marginBottom: '4px', fontSize: '16px' }}>Software Seguro</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Arquitectura sólida y protección de datos.</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0f9ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: '24px', flexShrink: 0 }}>⚙️</div>
+            <div>
+              <h3 style={{ fontWeight: 700, color: 'var(--primary)', marginBottom: '4px', fontSize: '16px' }}>Tecnología Moderna</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Desarrollos escalables y de baja latencia.</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0f9ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: '24px', flexShrink: 0 }}>👥</div>
+            <div>
+              <h3 style={{ fontWeight: 700, color: 'var(--primary)', marginBottom: '4px', fontSize: '16px' }}>Soluciones a Medida</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Aplicaciones creadas para tu necesidad.</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0f9ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: '24px', flexShrink: 0 }}>🎧</div>
+            <div>
+              <h3 style={{ fontWeight: 700, color: 'var(--primary)', marginBottom: '4px', fontSize: '16px' }}>Soporte Continuo</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Acompañamiento post-lanzamiento.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
