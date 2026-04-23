@@ -175,75 +175,47 @@ export default function Hero() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '48px' }}>
-        <button
-          onClick={goPrev}
-          style={{
-            background: 'rgba(0,212,255,.08)',
-            border: '1px solid rgba(0,212,255,.2)',
-            color: '#00d4ff',
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: '14px',
-          }}
-        >
+        <button onClick={goPrev} style={{
+          background: 'rgba(0,212,255,.08)',
+          border: '1px solid rgba(0,212,255,.2)',
+          color: '#00d4ff', width: '36px', height: '36px',
+          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
+        }}>
           &larr;
         </button>
 
         {slides.map((_, i) => (
-          <div
-            key={i}
-            onClick={() => setCurrent(i)}
-            style={{
-              width: i === current ? '24px' : '8px',
-              height: '8px',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              background: i === current ? '#00d4ff' : '#333355',
-              transition: 'all .3s',
-            }}
-          />
+          <div key={i} onClick={() => setCurrent(i)} style={{
+            width: i === current ? '24px' : '8px', height: '8px',
+            borderRadius: '4px', cursor: 'pointer',
+            background: i === current ? '#00d4ff' : '#333355',
+            transition: 'all .3s',
+          }} />
         ))}
 
-        <button
-          onClick={goNext}
-          style={{
-            background: 'rgba(0,212,255,.08)',
-            border: '1px solid rgba(0,212,255,.2)',
-            color: '#00d4ff',
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: '14px',
-          }}
-        >
+        <button onClick={goNext} style={{
+          background: 'rgba(0,212,255,.08)',
+          border: '1px solid rgba(0,212,255,.2)',
+          color: '#00d4ff', width: '36px', height: '36px',
+          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
+        }}>
           &rarr;
         </button>
       </div>
 
       <div style={{
-        position: 'absolute',
-        bottom: '32px',
-        left: '50%',
+        position: 'absolute', bottom: '32px', left: '50%',
         transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '8px',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
       }}>
         <div style={{
           fontFamily: "'Space Mono',monospace",
-          fontSize: '8px',
-          color: '#333355',
-          letterSpacing: '2px',
+          fontSize: '8px', color: '#333355', letterSpacing: '2px',
         }}>
           SCROLL
         </div>
         <div style={{
-          width: '1px',
-          height: '40px',
+          width: '1px', height: '40px',
           background: 'linear-gradient(to bottom, #00d4ff, transparent)',
           animation: 'pulse 2s ease-in-out infinite',
         }} />
