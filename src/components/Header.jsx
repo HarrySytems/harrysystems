@@ -1,129 +1,81 @@
 import { useState, useEffect } from 'react'
 
-const links = ['Inicio', 'Proyectos', 'Nosotros', 'Contacto']
+const links = ['Inicio', 'Nosotros', 'Servicios', 'Proyectos', 'Contacto']
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const scrollTo = (section) => {
-    const map = { 'Inicio': 'hero', 'Proyectos': 'proyectos', 'Nosotros': 'nosotros', 'Contacto': 'contacto' }
-    document.getElementById(map[section])?.scrollIntoView({ behavior: 'smooth' })
+    if (section === 'Inicio') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      const map = { 'Proyectos': 'proyectos', 'Nosotros': 'nosotros', 'Contacto': 'contacto', 'Servicios': 'proyectos' }
+      document.getElementById(map[section])?.scrollIntoView({ behavior: 'smooth' })
+    }
     setMenuOpen(false)
   }
 
   return (
-    <>
-      <header style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '0 24px',
-        background: scrolled ? 'rgba(5,5,15,0.97)' : 'rgba(5,5,15,0.8)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(0,212,255,0.1)',
-        transition: 'all .3s',
-      }}>
-        <div style={{
-          maxWidth: '1200px', margin: '0 auto',
-          height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img
-              src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
-              alt="HarrySystems"
-              style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1px solid rgba(0,212,255,0.3)', objectFit: 'cover' }}
-            />
-            <div>
-              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '13px', fontWeight: 800, color: '#ffffff', letterSpacing: '1px' }}>
-                HARRY<span style={{ color: '#00d4ff' }}>SYSTEMS</span>
-              </div>
-              <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '7px', color: '#aaaacc', letterSpacing: '2px' }}>
-                SOFTWARE & APPS
-              </div>
-            </div>
-          </div>
-
-          <nav style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">
-            {links.map(l => (
-              <button key={l} onClick={() => scrollTo(l)} style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                fontFamily: "'Space Mono',monospace", fontSize: '10px',
-                letterSpacing: '1px', color: '#ffffff',
-                padding: '8px 14px', borderRadius: '6px',
-                transition: 'color .2s, background .2s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#00d4ff'; e.currentTarget.style.background = 'rgba(0,212,255,0.08)' }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#ffffff'; e.currentTarget.style.background = 'none' }}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
-            <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
-              target="_blank" rel="noreferrer"
-              style={{
-                marginLeft: '8px', padding: '8px 16px',
-                background: '#00d4ff', color: '#000', borderRadius: '8px',
-                fontFamily: "'Space Mono',monospace", fontSize: '10px',
-                fontWeight: 700, textDecoration: 'none', letterSpacing: '1px',
-                whiteSpace: 'nowrap',
-              }}>
-              DESCARGAR APP
-            </a>
-          </nav>
-
-          <button onClick={() => setMenuOpen(!menuOpen)} style={{
-            background: 'none', border: '1px solid rgba(0,212,255,0.3)',
-            borderRadius: '8px', padding: '8px', cursor: 'pointer',
-            display: 'none', flexDirection: 'column', gap: '4px',
-          }} className="hamburger">
-            {[0,1,2].map(i => (
-              <div key={i} style={{ width: '20px', height: '2px', background: '#00d4ff', borderRadius: '2px' }} />
-            ))}
-          </button>
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      background: '#ffffff',
+      boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.05)' : 'none',
+      borderBottom: '1px solid var(--border)',
+      transition: 'all .3s',
+      height: '80px',
+      display: 'flex', alignItems: 'center'
+    }}>
+      <div className="container flex-between" style={{ width: '100%' }}>
+        
+        {/* LOGO */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+           <img src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg" alt="Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
+           <div style={{ fontWeight: 800, fontSize: '20px', color: 'var(--primary)', letterSpacing: '-0.5px' }}>
+             HARRY<span style={{ color: 'var(--accent)' }}>SYSTEMS</span>
+           </div>
         </div>
-      </header>
 
-      {menuOpen && (
-        <div style={{
-          position: 'fixed', top: '64px', left: 0, right: 0, zIndex: 99,
-          background: 'rgba(5,5,15,0.98)', borderBottom: '1px solid rgba(0,212,255,0.1)',
-          padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '8px',
-        }}>
+        {/* NAVEGACIÓN DESKTOP */}
+        <nav className="desktop-nav" style={{ display: 'flex', gap: '32px' }}>
           {links.map(l => (
             <button key={l} onClick={() => scrollTo(l)} style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              fontFamily: "'Space Mono',monospace", fontSize: '12px',
-              letterSpacing: '2px', color: '#ffffff', padding: '12px 0',
-              textAlign: 'left', borderBottom: '1px solid rgba(0,212,255,0.08)',
-            }}>
+              fontWeight: 600, fontSize: '14px', color: 'var(--text-dark)', transition: 'color 0.2s'
+            }} onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-dark)'}>
               {l.toUpperCase()}
             </button>
           ))}
-          <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
-            target="_blank" rel="noreferrer"
-            style={{
-              marginTop: '8px', padding: '12px', textAlign: 'center',
-              background: '#00d4ff', color: '#000', borderRadius: '8px',
-              fontFamily: "'Space Mono',monospace", fontSize: '11px',
-              fontWeight: 700, textDecoration: 'none',
-            }}>
-            DESCARGAR APP
-          </a>
+        </nav>
+
+        {/* BOTÓN DERECHA */}
+        <div className="desktop-nav">
+          <button className="btn btn-blue" onClick={() => scrollTo('Contacto')}>Cotiza tu proyecto</button>
+        </div>
+
+        {/* HAMBURGUESA MOBILE */}
+        <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)} style={{
+          display: 'none', background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: 'var(--primary)'
+        }}>
+          ☰
+        </button>
+      </div>
+
+      {/* MENÚ MOBILE */}
+      {menuOpen && (
+        <div style={{ position: 'absolute', top: '80px', left: 0, right: 0, background: '#fff', borderBottom: '1px solid var(--border)', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}>
+          {links.map(l => (
+            <button key={l} onClick={() => scrollTo(l)} style={{ background: 'none', border: 'none', textAlign: 'left', fontWeight: 600, fontSize: '16px', color: 'var(--primary)', padding: '8px 0' }}>{l}</button>
+          ))}
+          <button className="btn btn-blue" style={{ width: '100%', marginTop: '10px' }} onClick={() => scrollTo('Contacto')}>Cotiza tu proyecto</button>
         </div>
       )}
-
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .hamburger { display: flex !important; }
-        }
-      `}</style>
-    </>
+    </header>
   )
 }
