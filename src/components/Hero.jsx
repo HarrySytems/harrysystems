@@ -2,46 +2,31 @@ import { useState, useEffect } from 'react'
 
 const slides = [
   {
-    tag: '// DESARROLLO DE SOFTWARE',
-    title: 'Soluciones digitales que transforman tu negocio',
-    sub: 'Creamos apps, sistemas y plataformas web de alto impacto para empresas en Perú y Latinoamérica.',
-    accent: '#00d4ff',
+    tag: 'Soluciones a medida',
+    title: 'Software de alto impacto para Latinoamérica',
+    sub: 'Desarrollamos aplicaciones y sistemas escalables con un enfoque en rendimiento y experiencia de usuario.',
   },
   {
-    tag: '// APPS MÓVILES',
-    title: 'Promedius: La calculadora definitiva para estudiantes',
-    sub: 'Disponible para Android. Soporte para UNMSM, UNI, UTP, UNAM y más universidades de Latinoamérica.',
-    accent: '#00d4ff',
+    tag: 'Producto Destacado',
+    title: 'Promedius: Herramienta académica inteligente',
+    sub: 'La plataforma definitiva para el cálculo de promedios universitarios en Perú y la región.',
   },
   {
-    tag: '// MISIÓN HARRYSYSTEMS',
-    title: 'Tecnología con propósito, no con relleno',
-    sub: 'En HarrySystems creemos que el mejor software es el que resuelve algo real. Desarrollamos para estudiantes, empresas y emprendedores.',
-    accent: '#00d4ff',
+    tag: 'Ecosistema Digital',
+    title: 'StreamElevate: Control total para Streamers',
+    sub: 'Gestiona tu audiencia y alertas en tiempo real sin sacrificar recursos de tu hardware.',
   },
 ]
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(false)
 
   useEffect(() => {
     const t = setInterval(() => {
-      setAnimating(true)
-      setTimeout(() => { setCurrent(p => (p + 1) % slides.length); setAnimating(false) }, 300)
-    }, 5000)
+      setCurrent(p => (p + 1) % slides.length)
+    }, 6000)
     return () => clearInterval(t)
   }, [])
-
-  const goNext = () => {
-    setAnimating(true)
-    setTimeout(() => { setCurrent(p => (p + 1) % slides.length); setAnimating(false) }, 300)
-  }
-
-  const goPrev = () => {
-    setAnimating(true)
-    setTimeout(() => { setCurrent(p => (p - 1 + slides.length) % slides.length); setAnimating(false) }, 300)
-  }
 
   const slide = slides[current]
 
@@ -49,175 +34,93 @@ export default function Hero() {
     <section id="hero" style={{
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '120px 40px 80px',
-      position: 'relative',
-      overflow: 'hidden',
+      padding: '0 24px',
+      background: 'radial-gradient(circle at top, #18181b 0%, #09090b 100%)',
     }}>
-      <div style={{
-        position: 'absolute', top: '30%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px', height: '600px',
-        background: 'radial-gradient(circle, rgba(0,212,255,0.10) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{
-        maxWidth: '900px',
-        width: '100%',
-        textAlign: 'center',
-        opacity: animating ? 0 : 1,
-        transform: animating ? 'translateY(10px)' : 'translateY(0)',
-        transition: 'opacity .3s, transform .3s',
-      }}>
+      <div className="animate-fade" style={{ maxWidth: '800px', textAlign: 'center' }}>
+        
+        {/* Badge superior profesional */}
         <div style={{
-          fontFamily: "'Space Mono',monospace",
-          fontSize: '11px',
-          letterSpacing: '3px',
-          color: '#00d4ff',
-          marginBottom: '24px',
+          display: 'inline-block',
+          padding: '6px 12px',
+          borderRadius: '20px',
+          background: 'rgba(255,255,255,0.05)',
+          border: '1px solid var(--border)',
+          fontSize: '12px',
+          fontWeight: 500,
+          color: 'var(--text-muted)',
+          marginBottom: '24px'
         }}>
           {slide.tag}
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+        {/* Imagen centrada profesional */}
+        <div style={{ marginBottom: '32px' }}>
           <img
             src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
-            alt="HarrySystems"
-            className="animate-float"
+            alt="Logo"
             style={{
-              width: '90px',
-              height: '90px',
-              borderRadius: '20px',
-              border: '2px solid rgba(0,212,255,0.4)',
-              boxShadow: '0 0 40px rgba(0,212,255,0.25)',
-              objectFit: 'cover',
+              width: '80px',
+              height: '80px',
+              borderRadius: '16px',
+              border: '1px solid var(--border)',
+              objectFit: 'cover'
             }}
           />
         </div>
 
         <h1 style={{
-          fontFamily: "'Orbitron',monospace",
-          fontSize: 'clamp(28px, 5vw, 52px)',
-          fontWeight: 900,
+          fontSize: 'clamp(32px, 8vw, 64px)',
+          fontWeight: 800,
+          letterSpacing: '-0.02em',
           lineHeight: 1.1,
-          letterSpacing: '-1px',
-          color: '#ffffff',
           marginBottom: '24px',
+          color: 'var(--text-main)'
         }}>
           {slide.title}
         </h1>
 
         <p style={{
-          fontSize: '16px',
-          lineHeight: 1.8,
-          color: '#9999bb',
-          maxWidth: '620px',
+          fontSize: '18px',
+          color: 'var(--text-muted)',
+          maxWidth: '600px',
           margin: '0 auto 40px',
+          lineHeight: 1.6
         }}>
           {slide.sub}
         </p>
 
-        {/* AQUÍ ESTÁ EL CÓDIGO CORREGIDO PARA LOS BOTONES */}
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a 
-            href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
-            target="_blank"
-            rel="noreferrer"
-            className="hs-btn hs-btn-primary"
-          >
-            Descargar Promedius
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+          <a href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro" target="_blank" rel="noreferrer" className="hs-btn hs-btn-primary">
+            Obtener Promedius
           </a>
-          <button
-            className="hs-btn hs-btn-outline"
-            onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
-          >
+          <button onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })} className="hs-btn hs-btn-outline">
             Contactar
           </button>
         </div>
 
+        {/* Stats Minimalistas */}
         <div style={{
+          marginTop: '80px',
           display: 'flex',
-          gap: '48px',
           justifyContent: 'center',
-          marginTop: '64px',
-          flexWrap: 'wrap',
+          gap: '40px',
+          borderTop: '1px solid var(--border)',
+          paddingTop: '40px'
         }}>
           {[
-            { n: '1+', label: 'APP PUBLICADA' },
-            { n: 'LATAM', label: 'ALCANCE' },
+            { n: '1+', label: 'Apps Publicadas' },
+            { n: 'LATAM', label: 'Región' },
             { n: 'RUC', label: '10770540734' },
           ].map(s => (
-            <div key={s.label} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontFamily: "'Orbitron',monospace",
-                fontSize: '28px',
-                fontWeight: 900,
-                color: '#00d4ff',
-              }}>
-                {s.n}
-              </div>
-              <div style={{
-                fontFamily: "'Space Mono',monospace",
-                fontSize: '9px',
-                color: '#555577',
-                letterSpacing: '2px',
-                marginTop: '4px',
-              }}>
-                {s.label}
-              </div>
+            <div key={s.label}>
+              <div style={{ fontSize: '24px', fontWeight: 700 }}>{s.n}</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</div>
             </div>
           ))}
         </div>
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '48px' }}>
-        <button onClick={goPrev} style={{
-          background: 'rgba(0,212,255,.08)',
-          border: '1px solid rgba(0,212,255,.2)',
-          color: '#00d4ff', width: '36px', height: '36px',
-          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
-        }}>
-          &larr;
-        </button>
-
-        {slides.map((_, i) => (
-          <div key={i} onClick={() => setCurrent(i)} style={{
-            width: i === current ? '24px' : '8px', height: '8px',
-            borderRadius: '4px', cursor: 'pointer',
-            background: i === current ? '#00d4ff' : '#333355',
-            transition: 'all .3s',
-          }} />
-        ))}
-
-        <button onClick={goNext} style={{
-          background: 'rgba(0,212,255,.08)',
-          border: '1px solid rgba(0,212,255,.2)',
-          color: '#00d4ff', width: '36px', height: '36px',
-          borderRadius: '50%', cursor: 'pointer', fontSize: '14px',
-        }}>
-          &rarr;
-        </button>
-      </div>
-
-      <div style={{
-        position: 'absolute', bottom: '32px', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-      }}>
-        <div style={{
-          fontFamily: "'Space Mono',monospace",
-          fontSize: '8px', color: '#333355', letterSpacing: '2px',
-        }}>
-          SCROLL
-        </div>
-        <div style={{
-          width: '1px', height: '40px',
-          background: 'linear-gradient(to bottom, #00d4ff, transparent)',
-          animation: 'pulse 2s ease-in-out infinite',
-        }} />
       </div>
     </section>
   )
