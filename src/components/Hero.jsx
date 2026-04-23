@@ -4,18 +4,18 @@ const slides = [
   {
     tag: '// DESARROLLO DE SOFTWARE',
     title: 'Soluciones digitales que transforman tu negocio',
-    sub: 'Creamos apps, sistemas y plataformas web de alto impacto para empresas en Peru y Latinoamerica.',
+    sub: 'Creamos apps, sistemas y plataformas web de alto impacto para empresas en Perú y Latinoamérica.',
     accent: '#00d4ff',
   },
   {
-    tag: '// APPS MOVILES',
+    tag: '// APPS MÓVILES',
     title: 'Promedius: La calculadora definitiva para estudiantes',
-    sub: 'Disponible para Android. Soporte para UNMSM, UNI, UTP, UNAM y mas universidades de Latinoamerica.',
+    sub: 'Disponible para Android. Soporte para UNMSM, UNI, UTP, UNAM y más universidades de Latinoamérica.',
     accent: '#00d4ff',
   },
   {
-    tag: '// MISION HARRYSYSTEMS',
-    title: 'Tecnologia con proposito, no con relleno',
+    tag: '// MISIÓN HARRYSYSTEMS',
+    title: 'Tecnología con propósito, no con relleno',
     sub: 'En HarrySystems creemos que el mejor software es el que resuelve algo real. Desarrollamos para estudiantes, empresas y emprendedores.',
     accent: '#00d4ff',
   },
@@ -120,8 +120,9 @@ export default function Hero() {
           {slide.sub}
         </p>
 
+        {/* AQUÍ ESTÁ EL CÓDIGO CORREGIDO PARA LOS BOTONES */}
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          
+          <a 
             href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
             target="_blank"
             rel="noreferrer"
