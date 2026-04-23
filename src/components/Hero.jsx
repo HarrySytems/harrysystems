@@ -86,7 +86,7 @@ export default function Hero() {
 
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
           <img
-            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825437/image_e6kyib.jpg"
+            src="https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982738/image_4_p2iyhz.jpg"
             alt="HarrySystems"
             className="animate-float"
             style={{
@@ -95,6 +95,7 @@ export default function Hero() {
               borderRadius: '20px',
               border: '2px solid rgba(0,212,255,0.4)',
               boxShadow: '0 0 40px rgba(0,212,255,0.25)',
+              objectFit: 'cover',
             }}
           />
         </div>
@@ -122,7 +123,7 @@ export default function Hero() {
         </p>
 
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a
+          
             href="https://apkpure.com/promedius-pro/com.harrysystems.promediuspro"
             target="_blank"
             rel="noreferrer"
