@@ -5,10 +5,11 @@ const projects = [
     name: 'Promedius Pro',
     desc: 'La calculadora de promedios definitiva para estudiantes de Latinoamérica. Calcula tu promedio universitario al instante con soporte para UNMSM, UNI, UTP, UNAM y más. Incluye modo oscuro, pizarra de apuntes integrada, modo redondeo y selección por país.',
     tags: ['Android', 'Kotlin', 'LATAM', 'Educación'],
-    logo: 'https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825395/LOGOO_nnezce.png',
+    logo: 'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982582/LOGOO_o6ehak.png',
     screenshots: [
-      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825423/FOTO_5_nxwuii.png',
-      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1772825421/FOTO_4_dounjf.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_5_knuyy1.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_4_wcg4al.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_3_l2lpnk.png',
     ],
     link: 'https://apkpure.com/p/com.harrysystems.promediuspro',
     accent: '#7c3aed',
@@ -87,7 +88,7 @@ function ProjectCard({ project: p }) {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
               <img src={p.logo} alt={p.name}
-                style={{ width: '56px', height: '56px', borderRadius: '14px', border: `2px solid ${p.accent}40` }} />
+                style={{ width: '56px', height: '56px', borderRadius: '14px', border: `2px solid ${p.accent}40`, objectFit: 'cover' }} />
               <div>
                 <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '20px', fontWeight: 800, color: '#fff' }}>
                   {p.name}
