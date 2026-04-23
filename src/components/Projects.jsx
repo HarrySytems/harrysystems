@@ -8,8 +8,7 @@ const projects = [
     logo: 'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982582/LOGOO_o6ehak.png',
     screenshots: [
       'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_5_knuyy1.png',
-      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_4_wcg4al.png',
-      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982627/FOTO_3_l2lpnk.png',
+      'https://res.cloudinary.com/dwjy3y6va/image/upload/v1776982628/FOTO_2_1_dlhqpw.png',
     ],
     link: 'https://apkpure.com/p/com.harrysystems.promediuspro',
     accent: '#7c3aed',
@@ -53,7 +52,6 @@ export default function Projects() {
         <ProjectCard key={i} project={p} />
       ))}
 
-      {/* Coming soon */}
       <div className="hs-card animate-fadeUp-2" style={{ padding: '40px', textAlign: 'center', marginTop: '24px', borderStyle: 'dashed' }}>
         <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '10px', color: 'var(--muted)', letterSpacing: '3px', marginBottom: '12px' }}>
           // PRÓXIMAMENTE
@@ -82,8 +80,6 @@ function ProjectCard({ project: p }) {
   return (
     <div className="hs-card animate-fadeUp-1" style={{ padding: '0', overflow: 'hidden', marginBottom: '24px' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '400px' }}>
-
-        {/* Left: info */}
         <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
@@ -137,7 +133,6 @@ function ProjectCard({ project: p }) {
           </div>
         </div>
 
-        {/* Right: screenshots o video */}
         <div style={{
           background: 'var(--bg3)', borderLeft: '1px solid var(--border)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -179,7 +174,6 @@ function ProjectCard({ project: p }) {
             </>
           )}
         </div>
-
       </div>
     </div>
   )
