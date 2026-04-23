@@ -56,7 +56,6 @@ export default function Hero() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-
       <div style={{
         position: 'absolute', top: '30%', left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -73,7 +72,6 @@ export default function Hero() {
         transform: animating ? 'translateY(10px)' : 'translateY(0)',
         transition: 'opacity .3s, transform .3s',
       }}>
-
         <div style={{
           fontFamily: "'Space Mono',monospace",
           fontSize: '11px',
