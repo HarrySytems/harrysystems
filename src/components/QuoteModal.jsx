@@ -1,9 +1,31 @@
 import { useState } from 'react';
 
+// Diccionario de países de LATAM, España y USA con sus longitudes de número celular
+const countryData = [
+  { code: '+51', country: 'Perú', digits: 9 },
+  { code: '+52', country: 'México', digits: 10 },
+  { code: '+57', country: 'Colombia', digits: 10 },
+  { code: '+56', country: 'Chile', digits: 9 },
+  { code: '+54', country: 'Argentina', digits: 10 },
+  { code: '+593', country: 'Ecuador', digits: 9 },
+  { code: '+591', country: 'Bolivia', digits: 8 },
+  { code: '+34', country: 'España', digits: 9 },
+  { code: '+1', country: 'USA/Canadá', digits: 10 },
+];
+
 export default function QuoteModal({ isOpen, onClose }) {
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  
+  // Estado para manejar el código de país y el límite de dígitos dinámicamente
+  const [selectedCountry, setSelectedCountry] = useState(countryData[0]); 
 
   if (!isOpen) return null;
+
+  const handleCountryChange = (e) => {
+    const code = e.target.value;
+    const countryInfo = countryData.find(c => c.code === code);
+    if (countryInfo) setSelectedCountry(countryInfo);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,8 +34,11 @@ export default function QuoteModal({ isOpen, onClose }) {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    // Concatenamos el código de país con el número ingresado
+    const fullPhoneNumber = `${selectedCountry.code} ${data.phone}`;
+
     try {
-      // API gratuita y sin backend para enviar correos desde React
+      // API gratuita y sin backend
       const response = await fetch("https://formsubmit.co/ajax/contacto@harrysystems.website", {
         method: "POST",
         headers: {
@@ -23,7 +48,7 @@ export default function QuoteModal({ isOpen, onClose }) {
         body: JSON.stringify({
           Asunto: `Nueva Cotización de: ${data.name}`,
           Nombre: data.name,
-          WhatsApp_o_Telefono: data.phone,
+          WhatsApp_o_Telefono: fullPhoneNumber,
           Email: data.email,
           Tipo_de_Proyecto: data.projectType,
           Detalles: data.details
@@ -55,7 +80,7 @@ export default function QuoteModal({ isOpen, onClose }) {
     }}>
       <div className="animate-fade" style={{
         background: '#ffffff',
-        width: '100%', maxWidth: '500px',
+        width: '100%', maxWidth: '520px', // Ligeramente más ancho para acomodar el select
         borderRadius: '12px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         overflow: 'hidden'
@@ -73,7 +98,6 @@ export default function QuoteModal({ isOpen, onClose }) {
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {/* Truco para evitar spam bots en FormSubmit */}
             <input type="hidden" name="_captcha" value="false" />
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -81,9 +105,36 @@ export default function QuoteModal({ isOpen, onClose }) {
                 <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Nombre completo</label>
                 <input required name="name" type="text" style={inputStyle} placeholder="Ej. Juan Pérez" />
               </div>
+              
+              {/* CAMPO DE TELÉFONO COMPUESTO (Select + Input) */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>WhatsApp / Celular</label>
-                <input required name="phone" type="tel" style={inputStyle} placeholder="+51 999 999 999" />
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <select 
+                    value={selectedCountry.code} 
+                    onChange={handleCountryChange} 
+                    style={{ ...inputStyle, width: '90px', padding: '10px 4px', cursor: 'pointer' }}
+                  >
+                    {countryData.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.code} ({c.country})
+                      </option>
+                    ))}
+                  </select>
+                  <input 
+                    required 
+                    name="phone" 
+                    type="tel" 
+                    maxLength={selectedCountry.digits} 
+                    minLength={selectedCountry.digits}
+                    // Expresión regular para obligar a que solo se escriban números
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)) e.preventDefault();
+                    }}
+                    style={{ ...inputStyle, flex: 1 }} 
+                    placeholder={`${selectedCountry.digits} dígitos`} 
+                  />
+                </div>
               </div>
             </div>
 
