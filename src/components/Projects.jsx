@@ -52,7 +52,6 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Tarjeta de Próximamente Estilizada */}
         <div style={{
           marginTop: '60px',
           padding: '40px',
@@ -87,7 +86,6 @@ function ProjectCard({ project: p }) {
     <div style={{
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      gap: '40px',
       background: '#ffffff',
       border: '1px solid var(--border)',
       borderRadius: '20px',
@@ -103,13 +101,12 @@ function ProjectCard({ project: p }) {
         e.currentTarget.style.transform = 'translateY(0)'
         e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.03)'
       }}
-      className="project-card-mobile" // Usaremos media queries para móviles
+      className="project-card-mobile"
     >
       
-      {/* Columna Izquierda: Información */}
-      <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      {/* Columna Izquierda: Información. Usamos la clase project-info-box en lugar de padding fijo */}
+      <div className="project-info-box" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         
-        {/* Cabecera: Logo y Título */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
           <img src={p.logo} alt={p.name} style={{ width: '64px', height: '64px', borderRadius: '16px', border: '1px solid var(--border)', objectFit: 'cover' }} />
           <div>
@@ -130,12 +127,10 @@ function ProjectCard({ project: p }) {
           </div>
         </div>
 
-        {/* Descripción */}
         <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--text-dark)', marginBottom: '32px' }}>
           {p.desc}
         </p>
 
-        {/* Badges/Tags */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
           {p.tags.map(t => (
             <span key={t} style={{
@@ -149,7 +144,6 @@ function ProjectCard({ project: p }) {
           ))}
         </div>
 
-        {/* Botones */}
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <a href={p.link} target="_blank" rel="noreferrer" className="btn btn-blue">
             {p.youtube ? 'Abrir Aplicación' : 'Descargar Gratis'}
@@ -171,15 +165,13 @@ function ProjectCard({ project: p }) {
         </div>
       </div>
 
-      {/* Columna Derecha: Imagen/Video */}
-      <div style={{
+      {/* Columna Derecha: Imagen/Video. Usamos la clase project-image-box */}
+      <div className="project-image-box" style={{
         background: '#f8fafc',
-        borderLeft: '1px solid var(--border)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '40px',
         position: 'relative'
       }}>
         {showVideo && p.youtube ? (
@@ -207,7 +199,6 @@ function ProjectCard({ project: p }) {
                 transition: 'opacity 0.3s ease',
               }}
             />
-            {/* Puntos indicadores del slider */}
             <div style={{ display: 'flex', gap: '8px', marginTop: '24px' }}>
               {p.screenshots.map((_, i) => (
                 <div key={i} onClick={() => setActiveImg(i)} style={{
