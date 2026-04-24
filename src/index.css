@@ -4,21 +4,40 @@
   --bg-white: #ffffff;
   --bg-light: #f8fafc;
   --primary: #0f172a;    /* Azul muy oscuro para textos principales */
-  --accent: #0056b3;     /* Azul corporativo de tu imagen */
+  --accent: #0056b3;     /* Azul corporativo principal */
   --accent-hover: #004494;
   --text-dark: #334155;
   --text-muted: #64748b;
   --border: #e2e8f0;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+  background: var(--bg-white);
+}
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   background: var(--bg-white);
   color: var(--text-dark);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animación sutil de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Contenedor central responsivo */
@@ -30,35 +49,72 @@ body {
 
 /* Botones Profesionales */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 12px 28px; border-radius: 4px;
-  font-weight: 600; font-size: 15px;
-  cursor: pointer; transition: all 0.3s ease; text-decoration: none; border: none;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: 12px 28px; 
+  border-radius: 4px;
+  font-weight: 600; 
+  font-size: 15px;
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  text-decoration: none; 
+  border: none;
 }
-.btn-blue { background: var(--accent); color: #fff; }
-.btn-blue:hover { background: var(--accent-hover); box-shadow: 0 4px 12px rgba(0,86,179,0.2); }
-.btn-outline { background: transparent; border: 1px solid #fff; color: #fff; }
-.btn-outline:hover { background: rgba(255,255,255,0.1); }
 
-/* Clases de Layout y Responsividad (Soluciona el problema del celular) */
+.btn-blue { 
+  background: var(--accent); 
+  color: #fff; 
+}
+
+.btn-blue:hover { 
+  background: var(--accent-hover); 
+  box-shadow: 0 4px 12px rgba(0,86,179,0.2); 
+  transform: translateY(-1px);
+}
+
+.btn-outline { 
+  background: transparent; 
+  border: 1px solid #fff; 
+  color: #fff; 
+}
+
+.btn-outline:hover { 
+  background: rgba(255,255,255,0.1); 
+}
+
+/* Scrollbar minimalista */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Clases de Layout y Responsividad */
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 .flex-center { display: flex; justify-content: center; align-items: center; gap: 16px; }
 
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
 
-/* ADAPTACIÓN A MÓVILES */
+/* ADAPTACIÓN A MÓVILES Y TABLETS */
 @media (max-width: 992px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  
+  /* Ajuste para que las tarjetas de proyectos se apilen en pantallas medianas/pequeñas */
+  .project-card-mobile {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 768px) {
   .grid-4 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }
   
+  /* Menú de navegación */
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: block !important; }
   
+  /* Ajustes del Hero para celular */
   .hero-text-box { text-align: center; padding-top: 40px; }
   .hero-buttons { justify-content: center; flex-direction: column; width: 100%; }
   .hero-buttons .btn { width: 100%; }
