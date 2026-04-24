@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-// Diccionario de países de LATAM, España y USA con sus longitudes de número celular
+// Diccionario de países de LATAM, España y USA
 const countryData = [
   { code: '+51', country: 'Perú', digits: 9 },
   { code: '+52', country: 'México', digits: 10 },
@@ -15,8 +15,6 @@ const countryData = [
 
 export default function QuoteModal({ isOpen, onClose }) {
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
-  
-  // Estado para manejar el código de país y el límite de dígitos dinámicamente
   const [selectedCountry, setSelectedCountry] = useState(countryData[0]); 
 
   if (!isOpen) return null;
@@ -34,11 +32,11 @@ export default function QuoteModal({ isOpen, onClose }) {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    // Concatenamos el código de país con el número ingresado
-    const fullPhoneNumber = `${selectedCountry.code} ${data.phone}`;
+    // LÓGICA SENIOR: Validamos si el usuario ingresó teléfono o lo dejó vacío
+    const phoneValue = data.phone ? data.phone.trim() : '';
+    const fullPhoneNumber = phoneValue !== '' ? `${selectedCountry.code} ${phoneValue}` : 'No proporcionado';
 
     try {
-      // API gratuita y sin backend
       const response = await fetch("https://formsubmit.co/ajax/contacto@harrysystems.website", {
         method: "POST",
         headers: {
@@ -80,7 +78,8 @@ export default function QuoteModal({ isOpen, onClose }) {
     }}>
       <div className="animate-fade" style={{
         background: '#ffffff',
-        width: '100%', maxWidth: '540px', // Un poco más ancho para que respiren los campos
+        width: '100%', 
+        maxWidth: '600px', // Ampliado para evitar cortes
         borderRadius: '12px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         overflow: 'hidden'
@@ -100,21 +99,23 @@ export default function QuoteModal({ isOpen, onClose }) {
           <form onSubmit={handleSubmit} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <input type="hidden" name="_captcha" value="false" />
             
-            {/* Ajuste de grid: Le damos un poco más de espacio a la columna del celular (1.2fr) */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Nombre completo</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>
+                  Nombre completo <span style={{ color: '#dc2626' }}>*</span>
+                </label>
                 <input required name="name" type="text" style={inputStyle} placeholder="Ej. Juan Pérez" />
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>WhatsApp / Celular</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>
+                  WhatsApp / Celular <span style={{ fontSize: '11px', fontWeight: 400, color: 'var(--text-muted)' }}>(Opcional)</span>
+                </label>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  {/* Ancho dinámico ajustado a 120px para que entren nombres largos */}
                   <select 
                     value={selectedCountry.code} 
                     onChange={handleCountryChange} 
-                    style={{ ...inputStyle, width: '120px', padding: '10px 4px', cursor: 'pointer' }}
+                    style={{ ...inputStyle, width: '160px', padding: '10px 4px', cursor: 'pointer' }} // Ancho garantizado
                   >
                     {countryData.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -122,8 +123,8 @@ export default function QuoteModal({ isOpen, onClose }) {
                       </option>
                     ))}
                   </select>
+                  {/* INPUT SIN EL ATRIBUTO 'required' */}
                   <input 
-                    required 
                     name="phone" 
                     type="tel" 
                     maxLength={selectedCountry.digits} 
@@ -139,12 +140,16 @@ export default function QuoteModal({ isOpen, onClose }) {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Correo electrónico</label>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>
+                Correo electrónico <span style={{ color: '#dc2626' }}>*</span>
+              </label>
               <input required name="email" type="email" style={inputStyle} placeholder="ejemplo@gmail.com" />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Tipo de solución</label>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>
+                Tipo de solución <span style={{ color: '#dc2626' }}>*</span>
+              </label>
               <select required name="projectType" style={inputStyle}>
                 <option value="">Selecciona una opción...</option>
                 <option value="App Movil">App Móvil (Android/iOS)</option>
@@ -156,7 +161,9 @@ export default function QuoteModal({ isOpen, onClose }) {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Detalles del proyecto</label>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>
+                Detalles del proyecto <span style={{ color: '#dc2626' }}>*</span>
+              </label>
               <textarea required name="details" rows="4" style={{ ...inputStyle, resize: 'none' }} placeholder="Describe brevemente qué necesitas construir..."></textarea>
             </div>
 
