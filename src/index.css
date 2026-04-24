@@ -3,8 +3,8 @@
 :root {
   --bg-white: #ffffff;
   --bg-light: #f8fafc;
-  --primary: #0f172a;    /* Azul muy oscuro para textos principales */
-  --accent: #0056b3;     /* Azul corporativo principal */
+  --primary: #0f172a;
+  --accent: #0056b3;
   --accent-hover: #004494;
   --text-dark: #334155;
   --text-muted: #64748b;
@@ -17,14 +17,16 @@
   padding: 0; 
 }
 
-html { 
+/* 🔒 EL CANDADO: Evita la franja blanca y el desbordamiento en celulares */
+html, body { 
   scroll-behavior: smooth; 
   background: var(--bg-white);
+  overflow-x: hidden; 
+  width: 100%;
 }
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg-white);
   color: var(--text-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -53,7 +55,7 @@ body {
   align-items: center; 
   justify-content: center;
   padding: 12px 28px; 
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600; 
   font-size: 15px;
   cursor: pointer; 
@@ -62,26 +64,10 @@ body {
   border: none;
 }
 
-.btn-blue { 
-  background: var(--accent); 
-  color: #fff; 
-}
-
-.btn-blue:hover { 
-  background: var(--accent-hover); 
-  box-shadow: 0 4px 12px rgba(0,86,179,0.2); 
-  transform: translateY(-1px);
-}
-
-.btn-outline { 
-  background: transparent; 
-  border: 1px solid #fff; 
-  color: #fff; 
-}
-
-.btn-outline:hover { 
-  background: rgba(255,255,255,0.1); 
-}
+.btn-blue { background: var(--accent); color: #fff; }
+.btn-blue:hover { background: var(--accent-hover); box-shadow: 0 4px 12px rgba(0,86,179,0.2); transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1px solid #fff; color: #fff; }
+.btn-outline:hover { background: rgba(255,255,255,0.1); }
 
 /* Scrollbar minimalista */
 ::-webkit-scrollbar { width: 6px; }
@@ -92,32 +78,37 @@ body {
 /* Clases de Layout y Responsividad */
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 .flex-center { display: flex; justify-content: center; align-items: center; gap: 16px; }
-
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+
+/* PADDINGS DINÁMICOS PARA LAS TARJETAS DE PROYECTO (PC) */
+.project-info-box { padding: 48px; }
+.project-image-box { padding: 40px; border-left: 1px solid var(--border); }
 
 /* ADAPTACIÓN A MÓVILES Y TABLETS */
 @media (max-width: 992px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   
-  /* Ajuste para que las tarjetas de proyectos se apilen en pantallas medianas/pequeñas */
-  .project-card-mobile {
-    grid-template-columns: 1fr !important;
-  }
+  .project-card-mobile { grid-template-columns: 1fr !important; }
+  .project-image-box { border-left: none; border-top: 1px solid var(--border); }
 }
 
 @media (max-width: 768px) {
   .grid-4 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }
   
+  /* REDUCE EL PADDING EN CELULAR PARA EVITAR QUE SE ROMPA LA PANTALLA */
+  .project-info-box { padding: 24px; }
+  .project-image-box { padding: 24px; }
+  
   /* Menú de navegación */
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: block !important; }
   
   /* Ajustes del Hero para celular */
-  .hero-text-box { text-align: center; padding-top: 40px; }
+  .hero-text-box { text-align: center; padding-top: 20px; }
   .hero-buttons { justify-content: center; flex-direction: column; width: 100%; }
   .hero-buttons .btn { width: 100%; }
   
-  h1 { font-size: 36px !important; }
+  h1 { font-size: 38px !important; }
 }
