@@ -80,7 +80,7 @@ export default function QuoteModal({ isOpen, onClose }) {
     }}>
       <div className="animate-fade" style={{
         background: '#ffffff',
-        width: '100%', maxWidth: '520px', // Ligeramente más ancho para acomodar el select
+        width: '100%', maxWidth: '540px', // Un poco más ancho para que respiren los campos
         borderRadius: '12px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         overflow: 'hidden'
@@ -100,20 +100,21 @@ export default function QuoteModal({ isOpen, onClose }) {
           <form onSubmit={handleSubmit} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <input type="hidden" name="_captcha" value="false" />
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            {/* Ajuste de grid: Le damos un poco más de espacio a la columna del celular (1.2fr) */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Nombre completo</label>
                 <input required name="name" type="text" style={inputStyle} placeholder="Ej. Juan Pérez" />
               </div>
               
-              {/* CAMPO DE TELÉFONO COMPUESTO (Select + Input) */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>WhatsApp / Celular</label>
                 <div style={{ display: 'flex', gap: '8px' }}>
+                  {/* Ancho dinámico ajustado a 120px para que entren nombres largos */}
                   <select 
                     value={selectedCountry.code} 
                     onChange={handleCountryChange} 
-                    style={{ ...inputStyle, width: '90px', padding: '10px 4px', cursor: 'pointer' }}
+                    style={{ ...inputStyle, width: '120px', padding: '10px 4px', cursor: 'pointer' }}
                   >
                     {countryData.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -127,7 +128,6 @@ export default function QuoteModal({ isOpen, onClose }) {
                     type="tel" 
                     maxLength={selectedCountry.digits} 
                     minLength={selectedCountry.digits}
-                    // Expresión regular para obligar a que solo se escriban números
                     onKeyPress={(e) => {
                       if (!/[0-9]/.test(e.key)) e.preventDefault();
                     }}
@@ -140,7 +140,7 @@ export default function QuoteModal({ isOpen, onClose }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-dark)' }}>Correo electrónico</label>
-              <input required name="email" type="email" style={inputStyle} placeholder="tu@empresa.com" />
+              <input required name="email" type="email" style={inputStyle} placeholder="ejemplo@gmail.com" />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
