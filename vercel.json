@@ -1,1 +1,15 @@
-
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(.*)\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://harrysystems.website/$1",
+      "permanent": true
+    }
+  ]
+}
